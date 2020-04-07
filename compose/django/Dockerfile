@@ -1,6 +1,6 @@
 # More Datascience frendly gist can be found here: https://gist.github.com/ruddra/870d7a51238ddfa4b50375086c12a4f5
 # pull official python alpine image
-FROM python:3.7-alpine
+FROM python:2.7-alpine
 
 # Set Environment Variable
 ENV PYTHONUNBUFFERED 1
@@ -25,7 +25,7 @@ RUN apk update && apk add --no-cache \
 # Installing temporary packages required for installing requirements.pip 
 RUN apk add --no-cache --virtual build-deps \
     gcc \  
-    python3-dev \ 
+    python-dev \ 
     musl-dev \
     postgresql-dev\
     zlib-dev \
