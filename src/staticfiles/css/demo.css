@@ -1,0 +1,226 @@
+@media (min-width: 992px){
+    .typo-line{
+        padding-left: 140px;
+        margin-bottom: 40px;
+        position: relative;
+    }
+
+    .typo-line .category{
+        transform: translateY(-50%);
+        top: 50%;
+        left: 0px;
+        position: absolute;
+    }
+}
+
+.all-icons [class*="pe-"]{
+    font-size: 40px;
+}
+.all-icons input{
+    border: 0;
+}
+.all-icons .font-icon-detail{
+    text-align: center;
+    padding: 45px 0px 30px;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    margin: 15px 0;
+}
+.all-icons .font-icon-detail input{
+    margin: 25px auto 0;
+    width: 100%;
+    text-align: center;
+    display: block;
+    color: #aaa;
+    font-size: 13px;
+}
+
+#map{
+    position:relative;
+    width:100%;
+    height: calc(100% - 60px);
+}
+
+.places-buttons .btn{
+    margin-bottom: 30px
+}
+.sidebar .nav > li.active-pro{
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+}
+.sidebar .nav > li.active-pro a{
+    background: rgba(255, 255, 255, 0.14);
+    opacity: 1;
+    color: #FFFFFF;
+}
+
+.table-upgrade td:nth-child(2),
+.table-upgrade td:nth-child(3){
+    text-align: center;
+}
+
+
+
+.banner h2 {
+    font-family: 'Open Sans', arial;
+    -webkit-font-smoothing: antialiased;
+    color: #555;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.login-card{
+    background: #f7f7f7;
+    
+}
+.login-card label{
+    color: #555 !important;
+}
+
+
+
+
+/*Configuracion data Table*/
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right;
+}
+
+
+
+/*MENU*/
+
+.sidebar .user, .bootstrap-navbar .user {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 20px;
+    margin-top: 20px;
+}
+
+.sidebar .user .photo, .bootstrap-navbar .user .photo {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    margin: 0 auto;
+}
+
+.sidebar .user a, .bootstrap-navbar .user a {
+    text-align: center;
+    color: #FFFFFF;
+    padding: 8px 14px;
+    text-align: center;
+    display: block;
+}
+
+
+.collapse {
+    display: none ;
+}
+
+
+.photo img {
+    width: 100%;
+}
+
+
+.nav-banners {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.btn-all{
+    width: 100%;
+    margin-bottom: 0.5em;
+}
+
+@media (max-width: 600px) {
+  .btn-ir{
+    float: right;
+  }
+}
+
+/*Select 2*/
+.select2-container {
+    width: 100% !important;
+}
+
+
+
+/*Pizarra*/
+
+.icon-pizarra{
+    font-size: 2em;
+}
+.card-pizarra{
+    border-radius: 6px;
+    box-shadow: 0 2px 2px rgba(204, 197, 185, 0.5);
+    background-color: #FFFFFF;
+    color: #252422;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.card-pizarra .card-content {
+    padding: 15px 15px 0px 15px;
+}
+.card-pizarra .card-content .icon-pizarra{
+    font-size: 5em;
+}
+.card-pizarra .numbers {
+    text-align: right;
+    font-size: 2em;
+}
+.card-pizarra .numbers p {
+    margin: 0;
+}
+.card-pizarra .card-footer {
+    padding: 0 10px 10px;
+}
+.card-pizarra .stats {
+    color: #a49e93;
+    font-weight: 300;
+}
+
+
+/**/
+.card .breadcrumb{
+    background: white;
+}
+.label-banner{
+    font-size: 15px;
+}
+
+.img-google-play{
+    width: 100%
+}
+
+
+/*Estilos login*/
+
+.banner-top{
+    height: 25em;
+    background: white;
+    margin-bottom: 0em;
+}
+
+.banner-login{
+        margin-top: -26em;
+}
+
+.img-responsive{
+    margin: 0 auto;
+    width: 5em;
+    margin-top: 2em;
+}
+.banner h1{
+    margin: 0em;
+    color: gray;
+    font-weight: 400;
+    font-size: 1.5em;
+}
+
+
+
