@@ -1,0 +1,156 @@
+{% extends 'estudiante/index.html' %}
+{% load static from staticfiles %}
+{% block titulo %} | Calificaciones{% endblock%}
+
+{% block styles %}
+    <link href="{% static 'css/select2.min.css' %}" rel="stylesheet" />
+
+    <style>
+      
+      /* Make Select2 boxes match Bootstrap3 heights: */
+      .select2-selection__rendered {
+        line-height: 40px !important;
+      }
+
+      .select2-selection {
+        height: 40px !important;
+      }
+
+    </style>
+{% endblock %}
+
+{% block contenidoIndex %} 
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="content">
+        <div id='calendar' class="fc fc-ltr fc-unthemed"></div>
+      </div><!-- end content-->
+    </div><!--  end card  -->
+  </div> <!-- end col-md-12 -->
+</div> <!-- end row -->
+{% endblock%}
+
+
+{% block modal_form %}
+<!-- Modal -->
+<div class="modal fade" id="modal-tarea"  role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Nueva Tarea</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Título:</label>
+                <input type="text"  id="dni-input" name="title" class="form-control dni-input " placeholder="Título de la tarea" autofocus required>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Curso:</label>
+                <input type="text"  name="estudiante" class="form-control" disabled="" value="{{detalle.curso.curso.nombre}}">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Fecha Inicio:</label>
+                <input type="date" id="start" name="start" class="form-control" required  placeholder="20">
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Fecha Fin:</label>
+                <input type="date" id="end" name="end" class="form-control" required  placeholder="20">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Descripción:</label>
+                <textarea name="detail" class="form-control" rows="5" required placeholder="Descripción de la Tarea"></textarea>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock%}
+
+
+
+{% block scripts %}
+
+<script src="{% static 'js/lang-all.min.js' %}"></script>
+<script src="{% static 'js/select2.full.min.js' %}"></script>
+<script src="{% static 'js/apps/profesor/profesor.js' %}"></script>
+
+
+<script>
+
+$('document').ready(function() {
+
+  var today = moment().format('YYYY-MM-DD');
+  $('#start').val(today);
+  $('#end').val(today);
+
+  var tareas = {{ tareas|safe }};
+  //console.log(tareas)
+  events = []
+
+  for (var i in tareas){
+    fields = tareas[i].fields
+    events.push({
+        id:   fields.id,
+        allDay: true,
+        title: fields.title,
+        start: fields.start
+    });
+  }
+
+  $(".js-curso-data").select2();
+
+      $('.btn-nuevo').on('click', function() {
+        var $tr = $(this).parent().parent();
+        var $tds = $tr.find('td')
+        $('.dni-input').val($tds[1].textContent)
+        $('#estudiante-input').val($tds[2].textContent + " " + $tds[3].textContent)
+        
+      });
+
+
+  $('#calendar').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay,listWeek'
+      },
+      defaultDate: Date(),
+      navLinks: true, // can click day/week names to navigate views
+      editable: false,
+      eventLimit: true, // allow "more" link when too many events
+      events: events,
+      lang: 'es'
+    });
+
+});
+
+</script>
+
+
+{% endblock%}

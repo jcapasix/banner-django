@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+
+{% block titulo %}{% endblock%}
+
+{% block styles %} 
+<style>
+  body{
+    background: #0498ec;
+}
+@media (max-width: 600px) {
+  body{
+    background: white;
+    }
+}
+</style>
+{% endblock %}
+{% block contenido %}
+<div class="wrapper wrapper-full-page">
+    <div class="full-page login-page" data-color="orange">   
+    <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
+        <div class="content banner-top">
+        </div>
+        <div class="content banner-login">
+            <div class="container">
+              <br>
+              <div class="row banner"> 
+                  <div class="">
+                    <img class="img-responsive" src="{% static 'img/banner_ico.png' %}" alt="">
+                  </div>
+                  
+                  <h1 class="text-center">banner</h1>
+                  <h2 class="text-center">Inicia sesión para acceder a Banner</h2>                  
+                  <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3 ">
+                      {% if form.errors %}
+                      <p>Su nombre de usuario y contraseña no coinciden. Vuelve a intentarlo.</p>
+                      {% endif %}
+                      <form method="post" action="{% url 'ingresar' %}">
+                      {% csrf_token %}
+                          
+                      <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
+                          <div class="card login-card">
+                              <div class="content ">
+                                  <div class="form-group">
+                                      <label>DNI</label>
+                                      <input type="number" placeholder="Introduce tu DNI" class="form-control" name="username" required autofocus="">
+                                      <!--{{login_form.username}}
+                                      {{login_form.username.errors}}-->
+                                  </div>
+                                  <div class="form-group">
+                                      <label>Contraseña</label>
+                                      <input type="password" placeholder="Introduce tu Contraseña" class="form-control" name="password" required >
+                                      <!--{{login_form.password}}
+                                      {{login_form.password.errors}}-->
+           
+                                  </div>                                    
+                                  <div class="form-group">
+                                      <label class="checkbox">
+                                          <span class="icons"><span class="first-icon fa fa-square-o"></span><span class="second-icon fa fa-check-square-o"></span></span><input type="checkbox" data-toggle="checkbox" value="">
+                                          Recuérdame
+                                      </label>    
+                                  </div>
+                              </div>
+                              <div class="footer text-center">
+                                  <button type="submit" class="btn btn-fill btn-primary btn-wd">Iniciar sesión</button>
+                              </div>
+                              <br>
+                          </div>
+                              
+                      </form>
+                              
+                  </div>                    
+              </div>
+
+              <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3 ">
+              <a class="pull-right" href="">Encontrar mi cuenta</a>
+              </div>
+            </div>
+        </div>
+
+        
+    </div>                        
+</div>
+{% endblock%}
+
+{% block scripts %}
+{% endblock%}

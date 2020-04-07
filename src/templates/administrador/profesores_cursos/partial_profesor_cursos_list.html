@@ -1,0 +1,37 @@
+{% for detalle in detalles %}
+  <tr>
+    <td class="hidden-xs">{{forloop.counter }}</td>
+    <td><span class="label-banner label label-info">{{detalle.curso.curso.nombre}}</span></td>
+    <td class="hidden-xs">{{detalle.curso.curso.descripcion}}</td>
+    <td class="text-right">
+      <div class="hidden-xs">
+        <button type="button"
+                class="btn btn-warning btn-fill btn-sm js-update-profesor-cursos"
+                data-url="{% url 'profesor_cursos_update' detalle.id %}">
+          <i class="fa fa-edit"></i> Editar
+        </button>
+        <button type="button"
+                class="btn btn-danger btn-fill btn-sm js-delete-profesor-cursos"
+                data-url="{% url 'profesor_cursos_delete' detalle.id %}">
+          <i class="fa fa-times"></i>  Eliminar
+        </button>
+      </div>
+      <div class="row visible-xs">
+        <div class="col-sx-12 col-md-6">
+          <button type="button"
+                  class="btn-all btn btn-warning btn-fill btn-sm js-update-profesor-cursos"
+                  data-url="{% url 'profesor_cursos_update' detalle.id %}">
+            <i class="fa fa-edit"></i> Editar
+          </button>
+        </div>
+        <div class="col-sx-12 col-md-6">
+          <button type="button"
+                  class="btn-all btn btn-danger btn-fill btn-sm js-delete-profesor-cursos"
+                  data-url="{% url 'profesor_cursos_delete' detalle.id %}">
+            <i class="fa fa-times"></i>  Eliminar
+          </button>
+          </div>
+      </div>
+    </td>
+  </tr>
+{% endfor %}

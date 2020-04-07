@@ -1,0 +1,106 @@
+{% extends 'administrador/index.html' %}
+{% load static from staticfiles %}
+{% block titulo %} | Aulas | profesores{% endblock%}
+
+{% block contenidoIndex %} 
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <ol class="breadcrumb">
+        <li><a href="/">Inicio</a></li>
+        <li><a href="{% url 'aula_list' %}">Aulas</a></li>
+        <li class="active">Profesores</li>
+      </ol>
+    </div>
+    <div class="card">
+      <div class="content">
+        <div class="toolbar">
+          <!--        Here you can write extra buttons/actions for the toolbar              -->
+          <button class="btn btn-primary btn-fill btn-wd js-create-aula-profesores" data-url="{% url 'aula_profesores_create' aula_pk %}" ><span class="glyphicon glyphicon-plus"></span> Nuevo</button>
+
+        </div>
+        <br>
+        <div class="fresh-aula-table">
+          <table   id="aula-profesores-table" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+            <thead>
+              <tr>
+                <th class="hidden-xs">Nº</th>
+                <th>grado</th>
+                <th>nivel</th>
+                <th class="hidden-xs">Profesor</th>
+                <th class="disabled-sorting text-right">Administrar</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th class="hidden-xs">Nº</th>
+                <th>grado</th>
+                <th>nivel</th>             
+                <th class="hidden-xs">Profesor</th>
+                <th class="text-right">Administrar</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              {% for detalle in detalles %}
+                <tr>
+                  <td class="hidden-xs">{{forloop.counter }}</td>
+                  <td><span class="label-banner label label-primary">{{detalle.aula.grado}}</span></td>
+                  <td><span class="label-banner label label-primary">{{detalle.aula.nivel}}</span></td>
+                  
+                  <td><span class="label-banner label label-info">{{detalle.profesor}}</span></td>
+                  <td class="text-right">
+                    <div class="hidden-xs">
+                      <button type="button"
+                              class="btn btn-warning btn-fill btn-sm js-update-aula-profesores"
+                              data-url="{% url 'aula_profesores_update' detalle.id %}">
+                        <i class="fa fa-edit"></i> Editar
+                      </button>
+                      <button type="button"
+                              class="btn btn-danger btn-fill btn-sm js-delete-aula-profesores"
+                              data-url="{% url 'aula_profesores_delete' detalle.id %}">
+                        <i class="fa fa-times"></i>  Eliminar
+                      </button>
+                    </div>
+                    <div class="row visible-xs">
+                      <div class="col-sx-12 col-md-6">
+                        <button type="button"
+                                class="btn-all btn btn-warning btn-fill btn-sm js-update-aula-profesores"
+                                data-url="{% url 'aula_profesores_update' detalle.id %}">
+                          <i class="fa fa-edit"></i> Editar
+                        </button>
+                      </div>
+                      <div class="col-sx-12 col-md-6">
+                        <button type="button"
+                                class="btn-all btn btn-danger btn-fill btn-sm js-delete-aula-profesores"
+                                data-url="{% url 'aula_profesores_delete' detalle.id %}">
+                          <i class="fa fa-times"></i>  Eliminar
+                        </button>
+                        </div>
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div><!-- end content-->
+    </div><!--  end card  -->
+  </div> <!-- end col-md-12 -->
+</div> <!-- end row -->
+{% endblock%}
+
+
+{% block modal_form %}
+<!-- THE MODAL WE WILL BE USING -->
+  <div class="modal fade" id="modal-aula-profesores">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+{% endblock%}
+
+
+{% block scripts %}
+  <script src="{% static 'js/apps/administrador/aulas.js' %}"></script>
+{% endblock%}

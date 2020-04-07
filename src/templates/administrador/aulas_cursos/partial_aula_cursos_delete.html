@@ -1,0 +1,16 @@
+<form method="post" action="{% url 'aula_cursos_delete' detalle.id %}" class="js-aula-cursos-delete-form">
+  {% csrf_token %}
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title">Confirmar Eliminar Curso de Aula</h4>
+  </div>
+  <div class="modal-body">
+    <p class="lead">Esta seguro de eliminar el curso <strong>{{ detalle.curso.nombre}}</strong> del Aula  <strong> {{ detalle.aula.grado}} {{ detalle.aula.nivel}}</strong>?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+    <button type="submit" class="btn btn-danger">Eliminar Curso</button>
+  </div>
+</form>

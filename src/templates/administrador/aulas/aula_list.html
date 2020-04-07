@@ -1,0 +1,122 @@
+{% extends 'administrador/index.html' %}
+{% load static from staticfiles %}
+{% block titulo %} | Aulas{% endblock%}
+
+{% block contenidoIndex %} 
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <ol class="breadcrumb">
+        <li><a href="/">Inicio</a></li>
+        <li class="active">Aulas</li>
+      </ol>
+    </div>
+    <div class="card">
+      <div class="content">
+        <div class="toolbar">
+          <!--        Here you can write extra buttons/actions for the toolbar              -->
+          <button class="btn btn-primary btn-fill btn-wd js-create-aula" data-url="{% url 'aula_create' %}" ><span class="glyphicon glyphicon-plus"></span> Nueva</button>
+
+        </div>
+        <br>
+        <div class="fresh-aula-table">
+          <table   id="aula-table" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+            <thead>
+              <tr>
+                <th class="hidden-xs">Nº</th>
+                <th class="hidden-xs">grado</th>
+                <th class="hidden-xs">nivel</th>
+                <th class="hidden-xs">sección</th> 
+                <th class="visible-xs">Aula</th> 
+                <!--<th class="hidden-xs">Nº profesores</th>-->
+                <th class="hidden-xs">Nº Cursos</th>
+                <th class="disabled-sorting text-right">Administrar</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th class="hidden-xs">Nº</th>
+                <th class="hidden-xs">grado</th>
+                <th class="hidden-xs">nivel</th>
+                <th class="hidden-xs">sección</th> 
+                <th class="visible-xs">Aula</th> 
+                <!--<th class="hidden-xs">Nº profesor</th>-->
+                <th class="hidden-xs">Nº Cursos</th>
+                <th class="text-right">Administrar</th>
+              </tr>
+            </tfoot>
+            <tbody>
+              {% for aula in aulas %}
+                <tr>
+                  <td class="hidden-xs">{{forloop.counter }}</td>
+                  <td class="hidden-xs"><span class="label-banner label label-primary">{{aula.grado}}</span></td>
+                  <td class="hidden-xs"><span class="label-banner label label-primary">{{aula.nivel}}</span></td>
+                  <td class="hidden-xs"><span class="label-banner label label-primary">{{aula.seccion}}</span></td>
+                  <td class="visible-xs"><span class="label-banner label label-primary">{{aula.grado }} {{aula.nivel}} {{aula.seccion}}</span></td>
+                  <!--<td class="hidden-xs"><b>{{aula.profesores}}</b></td>-->
+                  <td class="hidden-xs"><b>{{aula.cursos}}</b></td>
+                  <td class="text-right">
+                    <div class="hidden-xs">
+                      <!--<a href="{% url 'aula_profesores' aula.id %}" class="btn btn-success btn-fill btn-sm active" role="button" aria-pressed="true"><i class="fa fa-list"></i>Profesores</a>-->
+                      <a href="{% url 'aula_cursos' aula.id %}" class="btn btn-success btn-fill btn-sm active" role="button" aria-pressed="true"><i class="fa fa-list"></i>Cursos</a>
+
+                      <button type="button"
+                              class="btn btn-warning btn-fill btn-sm js-update-aula"
+                              data-url="{% url 'aula_update' aula.id %}">
+                        <i class="fa fa-edit"></i> Editar
+                      </button>
+                      <button type="button"
+                              class="btn btn-danger btn-fill btn-sm js-delete-aula"
+                              data-url="{% url 'aula_delete' aula.id %}">
+                        <i class="fa fa-times"></i>  Eliminar
+                      </button>
+                    </div>
+                    <div class="row visible-xs">
+                      <div class="col-sx-12 col-md-6">
+                          <a href="{% url 'aula_profesores' aula.id %}" class="btn btn-all btn-success btn-fill btn-sm active" role="button" aria-pressed="true"><i class="fa fa-list"></i>Profesores</a>
+                      </div>
+                      <!--<div class="col-sx-12 col-md-6">
+                        <a href="{% url 'aula_cursos' aula.id %}" class="btn btn-all btn-success btn-fill btn-sm active" role="button" aria-pressed="true"><i class="fa fa-list"></i>Cursos</a>
+                      </div>-->
+                      <div class="col-sx-12 col-md-6">
+                        <button type="button"
+                                class="btn-all btn btn-warning btn-fill btn-sm js-update-aula"
+                                data-url="{% url 'aula_update' aula.id %}">
+                          <i class="fa fa-edit"></i> Editar
+                        </button>
+                      </div>
+                      <div class="col-sx-12 col-md-6">
+                        <button type="button"
+                                class="btn-all btn btn-danger btn-fill btn-sm js-delete-aula"
+                                data-url="{% url 'aula_delete' aula.id %}">
+                          <i class="fa fa-times"></i>  Eliminar
+                        </button>
+                        </div>
+                    </div>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div><!-- end content-->
+    </div><!--  end card  -->
+  </div> <!-- end col-md-12 -->
+</div> <!-- end row -->
+{% endblock%}
+
+
+{% block modal_form %}
+<!-- THE MODAL WE WILL BE USING -->
+  <div class="modal fade" id="modal-aula">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+{% endblock%}
+
+
+{% block scripts %}
+  <script src="{% static 'js/apps/administrador/aulas.js' %}"></script>
+{% endblock%}

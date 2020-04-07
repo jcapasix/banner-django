@@ -1,0 +1,64 @@
+{% extends 'apoderado/index.html' %}
+{% load static from staticfiles %}
+{% block titulo %} | Calificaciones{% endblock%}
+
+
+{% block contenidoIndex %} 
+
+<div class="row">
+  <div class="col-md-12">
+  <div class="card">
+    <!--<div class="header">
+      <h4 class="title">Striped Table with Hover</h4>
+      <p class="category">Here is a subtitle for this table</p>
+    </div>-->
+    <div class="content">
+        <div class="toolbar">
+        </div>
+          <div class="fresh-asistencias-table">
+            <table   id="apoderado-table" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+              <thead>
+                <tr>
+                  <th class="hidden-xs">Nº</th>
+                  <th class="hidden-xs">Estudiante</th>
+                  <th class="hidden-xs">Fecha Hora</th>
+                  <th>Curso</th>
+                  <th class="disabled-sorting text-right">Descripción</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr class="hidden-xs">
+                  <th>Nº</th>
+                  <th>Estudiante</th>
+                  <th>Fecha Hora</th>
+                  <th>Curso</th>
+                  <th class="disabled-sorting text-right">Descripción</th>
+                </tr>
+              </tfoot>
+              <tbody>
+                {% for obs in estudiante.observaciones %}
+                  <tr >
+                    <td class="hidden-xs">{{forloop.counter }}</td>
+                    <td class="hidden-xs" >{{estudiante.user.first_name}} {{estudiante.user.last_name}}</td>
+                    <td class="hidden-xs">{{obs.modified}}</td>
+                    <td>{{obs.curso.nombre}}</td>
+                    <td class="text-right">
+                      {{obs.descripcion}}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+      </div><!-- end content-->
+  </div><!--  end card  -->
+  </div> <!-- end col-md-12 -->
+  </div> <!-- end row -->
+
+
+
+{% endblock%}
+
+{% block scripts %}
+<script src="{% static 'js/apps/apoderado/apoderado.js' %}"></script>
+{% endblock%}

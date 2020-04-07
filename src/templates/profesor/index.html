@@ -1,0 +1,241 @@
+{% extends 'base.html' %}
+{% load static from staticfiles %}
+{% block titulo %}{% endblock%}
+{% block header %}
+{% endblock%}
+
+{% block contenido %}
+
+{% if user.is_authenticated %}
+
+<div class="wrapper">
+  {% block menu %}
+  <div class="sidebar" data-color="blue" >
+        <!--
+        data-image="{% static 'img/sidebar-5.jpg' %}"
+
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+
+        -->
+        <div class="sidebar-wrapper">
+          <div class="logo">
+            <a href="/" class="simple-text">
+                banner
+            </a>
+          </div>
+
+          
+          <div class="user">
+              <div class="photo">
+                  <img src="{% static 'img/colegio.jpg' %}">
+              </div>
+              <div class="info">
+                  <a data-toggle="collapse" href="#collapseExample" class="collapsed" aria-expanded="true">
+                     {{profesor.colegio_defecto}}
+                      <b class="caret"></b>
+                  </a>
+                  <div class="collapse" id="collapseExample" aria-expanded="true">
+                      <ul class="nav-banners">
+                          {% for item in colegios %}
+                            <li><a href="{{item.colegio.id}}">{{item.colegio.nombre}}</a></li>
+                          {% endfor %}
+                      </ul>
+                  </div>
+              </div>
+          </div>
+
+          <ul class="nav">
+            <li class="{{pizarra_active}}">
+                <a href="/">
+                    <i class="pe-7s-graph"></i>
+                    <p>Pizarra</p>
+                </a>
+            </li>
+            <li class="{{asistencia_active}}">
+                <a href="{% url 'asistencia_index' %}">
+                    <i class="pe-7s-graph3"></i>
+                    <p>Asistencias</p>
+                </a>
+            </li>
+            <li class="{{calificaciones_active}}">
+                <a href="{% url 'calificaciones_index' %}">
+                    <i class="pe-7s-news-paper"></i>
+                    <p>Calificaciones</p>
+                </a>
+            </li>
+            <li class="{{observaciones_active}}">
+                <a href="{% url 'observaciones_index' %}">
+                    <i class="pe-7s-info"></i>
+                    <p>Observaciones</p>
+                </a>
+            </li>
+            <li class="{{tareas_active}}">
+                <a href="{% url 'tareas_index' %}">
+                    <i class="pe-7s-note"></i>
+                    <p>Tareas</p>
+                </a>
+            </li>
+          </ul>
+          
+        </div>
+  </div>
+  {% endblock%}
+
+  <div class="main-panel">
+    <nav class="navbar navbar-default navbar-fixed">
+      <div class="container-fluid">
+      <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">{{page_name}}</a>
+      </div>
+
+      <div class="collapse navbar-collapse">
+
+          <ul class="nav navbar-nav navbar-right">
+              <li>
+                 <a href="/">
+                     <i class="pe-7s-home"></i> Inicio
+                  </a>
+              </li>
+              <!--<li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                          <i class="fa fa-globe"></i>
+                          <b class="caret"></b>
+                          <span class="notification">5</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Notification 1</a></li>
+                      <li><a href="#">Notification 2</a></li>
+                      <li><a href="#">Notification 3</a></li>
+                      <li><a href="#">Notification 4</a></li>
+                      <li><a href="#">Another notification</a></li>
+                    </ul>
+              </li>-->
+              <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                          {{user.first_name}}
+                          <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#">Perfil</a></li>
+                      <li class="divider"></li>
+
+                      <li><a class="text-danger" href="{% url 'salir' %}"><i class="pe-7s-close-circle"></i> Salir</a></li>
+                    </ul>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="content">
+      <div class="container-fluid">
+        {% block contenidoIndex %} 
+          
+        {% endblock%}
+      </div>
+    </div>
+    <!--
+    <footer class="footer">
+      <div class="container-fluid">
+      <nav class="pull-left">
+          <ul>
+              <li>
+                  <a href="#">
+                      Home
+                  </a>
+              </li>
+              <li>
+                  <a href="#">
+                      Company
+                  </a>
+              </li>
+              <li>
+                  <a href="#">
+                      Portfolio
+                  </a>
+              </li>
+              <li>
+                  <a href="#">
+                     Blog
+                  </a>
+              </li>
+          </ul>
+      </nav>
+      <p class="copyright pull-right">
+          &copy; 2016 <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
+      </p>
+      </div>
+    </footer> -->
+  </div>
+</div>
+
+
+{% else %}
+<div class="wrapper wrapper-full-page">
+    <div class="full-page login-page" data-color="orange">   
+    <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
+        <div class="content">
+            <div class="container">
+            <br>
+            <div class="row banner"> 
+                <h1 class="text-center">banner</h1>
+                <h2 class="text-center">Inicia sesión para acceder a Banner</h2>                  
+                <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3 ">
+                    {% if errors %}
+                    <p>Su nombre de usuario y contraseña no coinciden. Vuelve a intentarlo.</p>
+                    {% endif %}
+                    <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                        
+                    <!--   if you want to have the card without animation please remove the ".card-hidden" class   -->
+                        <div class="card login-card">
+                            <div class="content ">
+                                <div class="form-group">
+                                    <label>DNI</label>
+                                    <input type="number" placeholder="Introduce tu DNI" class="form-control" name="username" required autofocus="">
+                                    <!--{{login_form.username}}
+                                    {{login_form.username.errors}}-->
+                                </div>
+                                <div class="form-group">
+                                    <label>Contraseña</label>
+                                    <input type="password" placeholder="Introduce tu Contraseña" class="form-control" name="password" required >
+                                    <!--{{login_form.password}}
+                                    {{login_form.password.errors}}-->
+         
+                                </div>                                    
+                                <div class="form-group">
+                                    <label class="checkbox">
+                                        <span class="icons"><span class="first-icon fa fa-square-o"></span><span class="second-icon fa fa-check-square-o"></span></span><input type="checkbox" data-toggle="checkbox" value="">
+                                        Recuérdame
+                                    </label>    
+                                </div>
+                            </div>
+                            <div class="footer text-center">
+                                <button type="submit" class="btn btn-fill btn-primary btn-wd">Iniciar sesión</button>
+                            </div>
+                            <br>
+                        </div>
+                            
+                    </form>
+                            
+                </div>                    
+            </div>
+            <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3 ">
+            <a class="pull-right" href="">Encontrar mi cuenta</a>
+            </div>
+        </div>
+    </div>                        
+</div>
+{% endif %}
+{% endblock%}
+{% block modal_form %}
+{% endblock%}
+
+
+

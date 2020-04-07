@@ -1,0 +1,46 @@
+{% for profesor in profesores %}
+<tr>
+  <td class="hidden-xs">{{forloop.counter }}</td>
+  <td>{{profesor.user.username}}</td>
+  <td>{{profesor.user.first_name}}</td>
+  <td class="hidden-xs">{{profesor.user.last_name}}</td>
+  <td class="hidden-xs">{{profesor.profesion}}</td>
+  <td class="hidden-xs">{{profesor.telefono}}</td>
+  <td class="hidden-xs">{{profesor.user.email}}</td>
+  <td class="text-right">
+    <div class="hidden-xs">
+      <a href="{% url 'profesor_cursos' profesor.id %}" class="btn btn-primary btn-fill btn-sm active" role="button" aria-pressed="true"><i class="fa fa-book"></i>Cursos</a>
+      <button type="button"
+              class="btn btn-warning btn-fill btn-sm js-update-profesor"
+              data-url="{% url 'profesor_update' profesor.id %}">
+        <i class="fa fa-edit"></i> Editar
+      </button>
+      <button type="button"
+              class="btn btn-danger btn-fill btn-sm js-delete-profesor"
+              data-url="{% url 'profesor_delete' profesor.id %}">
+        <i class="fa fa-times"></i>  Eliminar
+      </button>
+    </div>
+    <div class="row visible-xs">
+      <div class="col-sx-12 col-md-6">
+        <a href="{% url 'profesor_cursos' profesor.id %}" class="btn btn-all btn-primary btn-fill btn-sm active" role="button" aria-pressed="true"><i class="fa fa-book"></i>Cursos</a>
+      </div>
+      <div class="col-sx-12 col-md-6">
+        <button type="button"
+            class="btn-all btn btn-warning btn-fill btn-sm js-update-profesor"
+            data-url="{% url 'profesor_update' profesor.id %}">
+          <i class="fa fa-edit"></i> Editar
+        </button>
+  
+      </div>
+      <div class="col-sx-12 col-md-6">
+        <button type="button"
+            class="btn-all btn btn-danger btn-fill btn-sm js-delete-profesor"
+            data-url="{% url 'profesor_delete' profesor.id %}">
+      <i class="fa fa-times"></i>  Eliminar
+    </button>
+      </div>
+    </div>
+  </td>
+</tr>
+{% endfor %}

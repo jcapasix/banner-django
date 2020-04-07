@@ -1,0 +1,43 @@
+{% extends 'profesor/index.html' %}
+{% load static from staticfiles %}
+{% block titulo %} | Observaciones {% endblock%}
+
+{% block contenidoIndex %} 
+
+<div class="row">
+	{% for detalle in detalles %}
+		<div class="col-md-3 col-sm-6">
+	    <div class="panel panel-default text-center">
+	        <div class="panel-heading">
+	            <p>{{detalle.curso.curso.nombre}}</p>
+	        </div>
+	        <div class="panel-body">
+	            <p>{{detalle.curso.aula.grado}} {{detalle.curso.aula.nivel}}</p>
+	            <a href="{% url 'observaciones_alumnos_list' detalle.id %}" class="btn btn-primary">Ingresar</a>
+	        </div>
+	    </div>
+	</div>
+	{% endfor %}
+</div>
+
+
+{% endblock%}
+
+
+{% block modal_form %}
+<!-- THE MODAL WE WILL BE USING -->
+  <div class="modal fade" id="modal-profesor">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+{% endblock%}
+
+
+
+{% block scripts %}
+
+    <script src="{% static 'js/apps/administrador/profesores.js' %}"></script>
+
+{% endblock%}

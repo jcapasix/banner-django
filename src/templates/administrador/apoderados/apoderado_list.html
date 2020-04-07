@@ -1,0 +1,98 @@
+{% extends 'administrador/index.html' %}
+{% load static from staticfiles %}
+{% block titulo %} | Apoderados{% endblock%}
+
+{% block contenidoIndex %} 
+
+<div class="row">
+  <div class="col-md-12">
+  <div class="card">
+    <ol class="breadcrumb">
+      <li><a href="/">Inicio</a></li>
+      <li class="active">Apoderados</li>
+    </ol>
+  </div>
+  <div class="card">
+    <div class="content">
+      <div class="toolbar">
+        <!--        Here you can write extra buttons/actions for the toolbar              -->
+        <button class="btn btn-primary btn-fill btn-wd js-create-apoderado" data-url="{% url 'apoderado_create' %}" ><span class="glyphicon glyphicon-plus"></span> Nuevo</button>
+      </div>
+      <br>
+      <div class="fresh-apoderado-table">
+        <table   id="apoderado-table" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+          <thead>
+
+            <tr>
+              <th class="hidden-xs">Nº</th>
+              <th>usuario</th>
+              <th>Nombre</th>
+              <th class="hidden-xs">Apellidos</th>
+              <th class="hidden-xs">Telefono</th>
+              <th class="hidden-xs">Correo</th>
+              <th class="disabled-sorting text-right">Administrar</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <th class="hidden-xs">Nº</th>
+              <th>usuario</th>
+              <th>Nombre</th>
+              <th class="hidden-xs">Apellidos</th>
+              <th class="hidden-xs">Telefono</th>
+              <th class="hidden-xs">Correo</th>
+              <th class="text-right">Administrar</th>
+            </tr>
+          </tfoot>
+          <tbody>
+            {% for apoderado in apoderados %}
+              <tr>
+                <td class="hidden-xs">{{forloop.counter }}</td>
+                <td>{{apoderado.user.username}}</td>
+                <td>{{apoderado.user.first_name}}</td>
+                <td class="hidden-xs">{{apoderado.user.last_name}}</td>
+                <td class="hidden-xs">{{apoderado.telefono}}</td>
+                <td class="hidden-xs">{{apoderado.user.email}}</td>
+                <td class="text-right">
+                  <div class="row">
+                    <div class="col-sx-12 col-md-6">
+                      <button type="button"
+                              class="btn-all btn btn-warning btn-fill btn-sm js-update-apoderado"
+                              data-url="{% url 'apoderado_update' apoderado.id %}">
+                        <i class="fa fa-edit"></i> Editar
+                      </button>
+                    </div>
+                    <div class="col-sx-12 col-md-6">
+                      <button type="button"
+                              class="btn-all btn btn-danger btn-fill btn-sm js-delete-apoderado"
+                              data-url="{% url 'apoderado_delete' apoderado.id %}">
+                        <i class="fa fa-times"></i>  Eliminar
+                      </button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div><!-- end content-->
+  </div><!--  end card  -->
+  </div> <!-- end col-md-12 -->
+  </div> <!-- end row -->
+
+{% endblock%}
+
+{% block modal_form %}
+<!-- THE MODAL WE WILL BE USING -->
+  <div class="modal fade" id="modal-apoderado">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+{% endblock%}
+
+{% block scripts %}
+  <script src="{% static 'js/apps/administrador/apoderados.js' %}"></script>
+{% endblock%}

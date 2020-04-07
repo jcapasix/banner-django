@@ -1,0 +1,50 @@
+{% for aula in aulas %}
+  <tr>
+    <td class="hidden-xs">{{forloop.counter }}</td>
+    <td class="hidden-xs"><span class="label-banner label label-primary">{{aula.grado}}</span></td>
+    <td class="hidden-xs"><span class="label-banner label label-primary">{{aula.nivel}}</span></td>
+    <td class="hidden-xs"><span class="label-banner label label-primary">{{aula.seccion}}</span></td>
+    <td class="visible-xs"><span class="label-banner label label-primary">{{aula.grado }} {{aula.nivel}} {{aula.seccion}}</span></td>
+    <!--<td class="hidden-xs"><b>{{aula.profesores}}</b></td>-->
+    <td class="hidden-xs"><b>{{aula.cursos}}</b></td>
+    <td class="text-right">
+      <div class="hidden-xs">
+        <!--<a href="{% url 'aula_profesores' aula.id %}" class="btn btn-success btn-fill btn-sm active" role="button" aria-pressed="true"><i class="fa fa-list"></i>Profesores</a>-->
+        <a href="{% url 'aula_cursos' aula.id %}" class="btn btn-success btn-fill btn-sm active" role="button" aria-pressed="true"><i class="fa fa-list"></i>Cursos</a>
+
+        <button type="button"
+                class="btn btn-warning btn-fill btn-sm js-update-aula"
+                data-url="{% url 'aula_update' aula.id %}">
+          <i class="fa fa-edit"></i> Editar
+        </button>
+        <button type="button"
+                class="btn btn-danger btn-fill btn-sm js-delete-aula"
+                data-url="{% url 'aula_delete' aula.id %}">
+          <i class="fa fa-times"></i>  Eliminar
+        </button>
+      </div>
+      <div class="row visible-xs">
+        <div class="col-sx-12 col-md-6">
+            <a href="{% url 'aula_profesores' aula.id %}" class="btn btn-all btn-success btn-fill btn-sm active" role="button" aria-pressed="true"><i class="fa fa-list"></i>Profesores</a>
+        </div>
+        <!--<div class="col-sx-12 col-md-6">
+          <a href="{% url 'aula_cursos' aula.id %}" class="btn btn-all btn-success btn-fill btn-sm active" role="button" aria-pressed="true"><i class="fa fa-list"></i>Cursos</a>
+        </div>-->
+        <div class="col-sx-12 col-md-6">
+          <button type="button"
+                  class="btn-all btn btn-warning btn-fill btn-sm js-update-aula"
+                  data-url="{% url 'aula_update' aula.id %}">
+            <i class="fa fa-edit"></i> Editar
+          </button>
+        </div>
+        <div class="col-sx-12 col-md-6">
+          <button type="button"
+                  class="btn-all btn btn-danger btn-fill btn-sm js-delete-aula"
+                  data-url="{% url 'aula_delete' aula.id %}">
+            <i class="fa fa-times"></i>  Eliminar
+          </button>
+          </div>
+      </div>
+    </td>
+  </tr>
+{% endfor %}

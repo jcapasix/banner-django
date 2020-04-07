@@ -1,0 +1,339 @@
+{% extends 'profesor/index.html' %}
+{% load static from staticfiles %}
+{% block titulo %} | Calificaciones{% endblock%}
+
+{% block styles %}
+
+    <link href="{% static 'css/select2.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/bootstrap-datetimepicker.min.css' %}" rel="stylesheet" />
+
+    <style>
+      
+      .select2-selection__rendered{
+          text-align: left ;
+      }
+
+      #asistencias-table [title='Asistencia']{
+          background: #1dc7ea;
+          color:white !important;
+          font-weight: bold;
+          border-radius: 5px !important;
+      }
+
+
+      #asistencias-table [title='Tardanza']{
+          background: #ffa534;
+          color:white !important;
+          font-weight: bold;
+          border-radius: 5px !important;
+      }
+
+      #asistencias-table [title='Falta']{
+          background: #fb404b;
+          color:white !important;
+          font-weight: bold;
+          border-radius: 5px !important;
+      }
+      .select2-selection__arrow b{
+          border-color: #fff transparent transparent transparent !important;
+      }
+
+      .select2-container--default .select2-selection--single{
+          border: none !important;
+
+      }
+
+    </style>
+
+{% endblock %}
+
+
+
+{% block contenidoIndex %} 
+  
+
+
+
+<div class="row">
+
+  <div class="col-md-12">
+    <div class="card">
+      <div class="content">
+      <form id="form-ir" method="GET">
+        <div class="row">
+          <div class="col-xs-12 col-md-6">
+            <label>Fecha:</label>
+            <div class="row">
+              <div class="col-xs-8 col-md-6">
+                <input type="date"  id="fecha" name="fecha" class="pull-left form-control" required  value="{{fecha}}">
+              </div>
+              <div class="col-xs-4 col-md-6">
+                <button class="btn-ir btn btn-primary btn-fill " type="submit" value = "submit" >Ir</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <div class="card">
+      <!--<div class="header">
+        <h4 class="title">Striped Table with Hover</h4>
+        <p class="category">Here is a subtitle for this table</p>
+      </div>-->
+      <div class="content">
+        <div class="toolbar">
+        </div>
+        {% if is_asistencias %}
+          <div class="fresh-asistencias-table">
+            <table   id="asistencias-table" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+              <thead>
+
+                <tr>
+                  <th class="hidden-xs">Nº</th>
+                  <th class="hidden-xs">usuario</th>
+                  <th>Nombre</th>
+                  <th>Apellidos</th>
+                  <th class="hidden-xs">Email</th>
+                  <th class="disabled-sorting text-right">Estado</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr class="hidden-xs">
+                  <th>Nº</th>
+                  <th>usuario</th>
+                  <th>Nombre</th>
+                  <th>Apellidos</th>
+                  <th>Email</th>
+                  <form id="form-asistencias" method="POST">
+                    {% csrf_token %}
+                    <th class="text-right"><button class="btn_guardar_asistencia btn btn-primary btn-fill btn-wd" type="button" value = "submit" onClick="submitform()">GUARDAR</button></th>
+                  </form>
+                </tr>
+              </tfoot>
+              <tbody>
+                {% for asistencia in asistencias %}
+                  <tr >
+                    <td class="hidden-xs">{{forloop.counter }}</td>
+                    <td class="hidden-xs" >{{asistencia.estudiante.user.username}}</td>
+                    <td>{{asistencia.estudiante.user.first_name}}</td>
+                    <td>{{asistencia.estudiante.user.last_name}}</td>
+                    <td class="hidden-xs">{{asistencia.estudiante.user.email}}</td>
+                    <td class="text-right">
+                      
+                      <select data-id="{{asistencia.estudiante.id}}" class="sel_state" name="" id="" style="width: 120px; text-align:left !important
+                      ;">
+                        {% if asistencia.estado == 1 %}
+                          <option selected value="1">Asistencia</option>
+                          <option value="2">Tardanza</option>
+                          <option value="3">Falta</option>
+                        {% elif asistencia.estado == 2 %}
+                          <option value="1">Asistencia</option>
+                          <option selected value="2">Tardanza</option>
+                          <option value="3">Falta</option>
+                        {% elif asistencia.estado == 3 %}
+                          <option value="1">Asistencia</option>
+                          <option value="2">Tardanza</option>
+                          <option selected value="3">Falta</option>
+                        {% endif %}
+                      </select>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="visible-xs">
+              <form id="form-asistencias" method="POST">
+                {% csrf_token %}
+                <button class="btn_guardar_asistencia btn btn-primary btn-fill btn-wd btn-all" type="button" value = "submit" onClick="submitform()">GUARDAR</button>
+              </form>
+            </div>
+          </div>
+        {% else%}
+          <div class="fresh-asistencias-table">
+            <table   id="asistencias-table" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+              <thead>
+
+                <tr>
+                  <th class="hidden-xs">Nº</th>
+                  <th class="hidden-xs">usuario</th>
+                  <th>Nombre</th>
+                  <th>Apellidos</th>
+                  <th class="hidden-xs">Email</th>
+                  <th class="disabled-sorting text-right">Estado</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr class="hidden-xs">
+                  <th>Nº</th>
+                  <th>usuario</th>
+                  <th>Nombre</th>
+                  <th>Apellidos</th>
+                  <th>Email</th>
+                  <form id="form-asistencias" method="POST">
+                    {% csrf_token %}
+                    <th class="text-right"><button class="btn_guardar_asistencia btn btn-primary btn-fill btn-wd" type="button" value = "submit" onClick="submitform()">GUARDAR</button></th>
+                  </form>
+                </tr>
+              </tfoot>
+              <tbody>
+                {% for estudiante in estudiantes %}
+                  <tr >
+                    <td class="hidden-xs">{{forloop.counter }}</td>
+                    <td class="hidden-xs">{{estudiante.user.username}}</td>
+                    <td>{{estudiante.user.first_name}}</td>
+                    <td>{{estudiante.user.last_name}}</td>
+                    <td class="hidden-xs">{{estudiante.user.email}}</td>
+                    <td class="text-right">
+                      <select data-id="{{estudiante.id}}" class="sel_state" name="" id="" style="width: 120px; text-align:left !important
+                      ;">
+                        <option value="1">Asistencia</option>
+                        <option value="2">Tardanza</option>
+                        <option value="3">Falta</option>          
+                      </select>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="visible-xs">
+              <form id="form-asistencias" method="POST">
+                {% csrf_token %}
+                <button class="btn_guardar_asistencia btn btn-primary btn-fill btn-wd btn-all" type="button" value = "submit" onClick="submitform()">GUARDAR</button>
+              </form>
+            </div>
+          </div>
+        {% endif %}
+      </div><!-- end content-->
+    </div><!--  end card  -->
+  </div> <!-- end col-md-12 -->
+
+</div> <!-- end row -->
+{% endblock%}
+
+
+{% block modal_form %}
+<!-- THE MODAL WE WILL BE USING -->
+  <div class="modal fade" id="modal-profesor">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+
+{% endblock%}
+
+
+
+{% block scripts %}
+
+<script src="{% static 'js/apps/profesor/profesor.js' %}"></script>
+<script src="{% static 'js/select2.full.min.js' %}"></script>
+<script src="{% static 'js/moment.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-datetimepicker.min.js' %}"></script>
+
+
+<script>
+  $(document).ready(function(){
+
+    var is_save = {{is_save}}
+    
+    if (is_save == 1){
+      console.log("True")
+    }
+    else{
+      console.log("False")
+    }
+    //var today = moment().format('YYYY-MM-DD');
+    //$('#fecha').val(today);
+
+    // using jQuery
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+      $('.datepicker').datetimepicker({
+        showTodayButton: true,
+        format: "DD-MM-YYYY hh:mm A",
+        sideBySide: true,
+        widgetPositioning: {
+            horizontal: 'right',
+            vertical: 'top'
+        }
+    });
+      
+    $('select').select2({
+      minimumResultsForSearch: Infinity
+    });
+    $('.btn_guardar_asistencia').on('click',function(){
+    })
+
+  });
+
+  function submitform() {
+    var today = moment().format('YYYY-MM-DD');
+
+    swal({
+      title: 'Está seguro de guardar las asistencias?',
+      text: "fecha: " + today,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, Guardar',
+      cancelButtonText: 'Cancelar'
+    }).then(function (isConfirm) {
+      if (isConfirm) {
+        var fecha = $('#fecha').val()
+        var selects=$('.sel_state');
+      
+        var obj=new Array();
+        for(var i=0,j=selects.length;i<j;i++){
+          obj.push({id:$(selects[i]).data('id'),state:$(selects[i]).val()})
+        }  
+        var url = window.location.href
+        $('#form-asistencias').attr('action', url);
+        var data = JSON.stringify(obj);
+        $('<input type="hidden" name="fecha"/>').val(fecha).appendTo('#form-asistencias');
+        $('<input type="hidden" name="obj"/>').val(data).appendTo('#form-asistencias');
+        $("#form-asistencias").submit();
+          }
+          
+    })
+
+  }
+
+
+</script>
+
+
+{% endblock%}

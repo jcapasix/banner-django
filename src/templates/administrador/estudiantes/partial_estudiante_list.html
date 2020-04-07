@@ -1,0 +1,29 @@
+{% for estudiante in estudiantes %}
+<tr>
+  <td class="hidden-xs">{{forloop.counter }}</td>
+  <td>{{estudiante.user.username}}</td>
+  <td>{{estudiante.user.first_name}}</td>
+  <td class="hidden-xs">{{estudiante.user.last_name}}</td>
+  <td class="hidden-xs text-center ">{{estudiante.aula.grado}}</td>
+  <td class="hidden-xs">{{estudiante.telefono}}</td>
+  <td class="hidden-xs">{{estudiante.user.email}}</td>
+  <td class="text-right">
+    <div class="row">
+      <div class="col-sx-12 col-md-6">
+        <button type="button"
+                class="btn-all btn btn-warning btn-fill btn-sm js-update-estudiante"
+                data-url="{% url 'estudiante_update' estudiante.id %}">
+          <i class="fa fa-edit"></i> Editar
+        </button>
+      </div>
+      <div class="col-sx-12 col-md-6">
+        <button type="button"
+                class="btn-all btn btn-danger btn-fill btn-sm js-delete-estudiante"
+                data-url="{% url 'estudiante_delete' estudiante.id %}">
+          <i class="fa fa-times"></i>  Eliminar
+        </button>
+      </div>
+    </div>
+  </td>
+</tr>
+{% endfor %}
